@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA_Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pondok Pesantren di Kabupaten Jombang</title>
+
+    <!--css-->
+    <link rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+
+    <!--js-->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <!--bootstrap CSS dan JS-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <!--routing machine CSS dan JS-->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
+    />
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+    <!--geocoder CSS dan JS-->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"
+    />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+	
+	<script type="text/javascript" src="assets/Batas_AdminDesa_Jombang.js"></script>
+	<script type="text/javascript" src="assets/Ponpes_Jombang.js"></script>
+
+    <style>
+      #map { height: 650px; }
+    </style>
+</head>
+
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+	  <img src="D:/UGM Bita/SEMESTER 4/PRAKTIKUM PS WEB/Data Studi Kasus/Geodatabase/assets/logo.png" width="30" height="30" alt="Malas Ngoding">
+	  Nyantri di Jombang
+	  </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+          <button type="button" class="btn btn-success">Search</button>
+        </form>
+      </div>
+    </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row" style="margin-top: 10px; ">
+        <div class="col-sm-9">
+          <div id="map"></div>
+        </div>
+        <div class="col-sm-3">
+          <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+            </symbol>
+          </svg>
+          <div class="alert alert-success d-flex align-items-center" role="alert">
+          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+          <div>
+            <h4 class="alert-heading"><b>Pondok Pesantren di Jombang</b></h4>
+            <p>Jombang adalah salah satu kabupaten di Jawa Timur yang dikenal sebagai tempat kelahiran banyak tokoh besar muslim. Selain itu banyaknya pondok pesantren yang terletak di kabupaten ini, menjadikan Kabupaten Jombang memiliki julukan sebagai Kota Santri</p>
+          </div>
+          </div>
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Legend
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                  <symbol id="titik-faskes" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                    </symbol>
+                    <symbol id="garis" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/>
+                    </symbol>
+                  </svg>
+                  <div class="alert alert-success d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="titik faskes"><use xlink:href="#titik-faskes"/></svg>
+                    <div>
+                      Pondok Pesantren
+                    </div>
+                  </div>
+                  <div class="alert alert-success d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="garis"><use xlink:href="#garis"/></svg>
+                    <div>
+                      Batas administrasi desa
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div> 
+         </div>
+        </div>
+      </div>
+    </div>
+</body>
+ 
+<script>
+    var map = L.map('map').setView([-7.467446286755524, 112.23858737120014], 10);
+	var ponpes_jombang = L.geoJson(ponpes_jombang).addTo(map);
+	var batas_admin_jbg = L.geoJson(batas_admin_jbg).addTo(map);
+        
+        //Tile Layer Basemap
+        var basemap1 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+            attribution: '<a href = "https://www.openstreetmap.org/copyright">OpenStreetMap</a> | <a href = "DIVSIG UGM" target = "_blank">DIV SIG UGM </a> Aulia Putri Sabita' //menambahkan nama//
+        });
+        var basemap2 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{
+            attribution: 'Tile&copy; Esri | <a href: "Latihan WebGIS" target="_blank">DIV SIG UGM</a> Aulia Putri Sabita'
+        });
+        var basemap3 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
+            attribution: 'Tiles &copy; Esri | <a href="Latihan WebGIS" target="_blank">DIV SIG UGM</a> Aulia Putri Sabita'
+        });
+        basemap1.addTo(map);
+		
+        //tambah area dan tampilkan popup
+        var geojson = L.geoJson(polygonJSON, {
+            onEachFeature: function (feature, layer) {
+                var popupText = "Desa: " + feature.properties.NAMOBJ;
+                layer.bindPopup(popupText);
+            },
+        });
+
+        //marker cluster
+        var markers = L.markerClusterGroup();
+        var geoJsonLayer = L.geoJSON(pointJSON, {
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup(feature.properties.Pondok_Pes);
+            },
+        });
+        markers.addLayer(geoJsonLayer);
+
+        //tambah file geojson area
+        markers.addLayer(geojson);
+
+        //tambah marker
+        map.addLayer(markers);
+        map.fitBounds(markers.getBounds());
+
+        //Mengatur routing
+        L.Routing.control({
+            routeWhileDragging: true,
+            reverseWaypoints: true,
+            autoRoute: true,
+            geocoder: L.Control.Geocoder.nominatim(),
+        }).addTo(map);
+        L.Control.geocoder().addTo(map);
+
+        //Current Location
+        if (!navigator.geolocation) {
+            console.log("Your browser doesn't support geolocation feature!");
+        } else {
+        setInterval(() => {
+            navigator.geolocation.getCurrentPosition(getPosition);
+            }, 5000);
+        }
+
+        //Variabel marker
+        var marker, circle;
+
+        //Current Location
+        function getPosition(position) {
+            var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+            var accuracy = position.coords.accuracy;
+        if (marker) {
+            map.removelayer(marker);
+        }
+        if (circle) {
+            map.removelayer(circle);
+        }
+        marker = L.marker([lat, long]);
+        circle = L.circle([lat, long], { radius: accuracy });
+
+        var featureGroup = L.featureGroup([marker, circle]).addTo(map);
+        map.fitBounds(featureGroup.getBounds());
+        console.log(
+            "Your coordinate is: Lat: " +
+            lat +
+            " Long: " +
+            long +
+            "Accuracy: " +
+            accuracy
+      );
+    }
+
+    /* Control Layer */
+    var baseMaps = {
+            "Open Street Map": basemap1,                
+            "Esri World Street": basemap2,
+            "Esri Imagery": basemap3
+        };
+        L.control.layers(baseMaps).addTo(map);
+
+    //Scale Bar
+    L.control.scale({
+        maxWidth: 150,
+        position: "bottomright",
+      })
+    .addTo(map);
+        
+</script>    
+</html>
